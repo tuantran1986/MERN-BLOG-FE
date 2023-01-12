@@ -2,22 +2,28 @@ import logo from './logo.svg';
 import './App.css';
 
 // 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as action from './redux/action/index';
 
 
 function App() {
 
+  // 1.lấy DATA - từ REDUCER về COMPONENT = useSelector
+  const postList = useSelector(state => state.postReducer.postList);
+  console.log('...run useSelector: postList = ', postList);
+
+  // 2. thực hiện CALL API = useDispatch
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    
+  
+  useEffect(() => {    
     console.log('1...run dispatch: GET_ALL_POSTS');
     dispatch(action.getAllPosts());
-    
   }, [])
   
+
+
 
 
   // RENDER:
