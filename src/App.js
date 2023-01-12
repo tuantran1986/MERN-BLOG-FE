@@ -1,7 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
 
+// 
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import * as action from './redux/action/index';
+
+
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+    console.log('1...run dispatch: GET_ALL_POSTS');
+    dispatch(action.getAllPosts());
+    
+  }, [])
+  
+
+
+  // RENDER:
   return (
     <div className="App">
       <header className="App-header">
