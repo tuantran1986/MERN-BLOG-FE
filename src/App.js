@@ -5,6 +5,9 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as action from './redux/action/index';
+// 
+import Header from './components/Header';
+import HomePage from './pages/HomePage';
 
 
 function App() {
@@ -24,25 +27,11 @@ function App() {
   
 
 
-
-
   // RENDER:
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          TUANTRAN - CODE
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Header />
+      <HomePage />
     </div>
   );
 }
