@@ -8,30 +8,32 @@ import * as action from './redux/action/index';
 // 
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
+import { selectPostList } from './redux/selector';
 
 
 function App() {
 
   // 1.lấy DATA - từ REDUCER về COMPONENT = useSelector
-  const postList = useSelector(state => state.postReducer.postList);
+    // CLEAN CODE = "lấy - postList trực tiếp - từ component: PostList"
+  const postList = useSelector(selectPostList);
+    // const postList = useSelector(state => state.postReducer.postList);
   console.log('...run useSelector: postList = ', postList);
 
   // 2. thực hiện CALL API = useDispatch
   const dispatch = useDispatch();
 
-  
-  useEffect(() => {    
+  useEffect(() => {
     console.log('1...run dispatch: GET_ALL_POSTS');
     dispatch(action.getAllPosts());
   }, [])
-  
+
 
 
   // RENDER:
   return (
     <div className='App'>
       <Header />
-      <HomePage />
+      <HomePage postList={postList} />
     </div>
   );
 }

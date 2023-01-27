@@ -15,47 +15,33 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-// 
-export default function PostList() {
+// COMPONENT :
+export default function PostList(props) {
+
+  const postList = props.postList;
+
+  console.log('data - postList: ', postList);
+
+  // RENDER:
   return (
     <>
       <Grid container spacing={2}>
-        
-        {/*  */}
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
 
-        {/*  */}
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <PostDetail />
-          </Item>
-        </Grid>
+        {/* MAP - DATA */}
 
-        {/*  */}
+        {
+          postList && postList.length
+            ?
+            postList.map(postInfo =>
+              <Grid item xs={4}>
+                <Item>
+                  <PostDetail key={postInfo._id} postInfo={postInfo} />
+                </Item>
+              </Grid>
+            )
+            :
+            <span>NO-DATA</span>
+        }
 
       </Grid>
     </>
