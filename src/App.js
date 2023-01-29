@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import { selectPostList } from './redux/selector';
 import { Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
+import CreatePostModel from './components/CreatePostModel';
 
 
 function App() {
@@ -29,17 +30,24 @@ function App() {
     dispatch(action.getAllPosts());
   }, [])
 
-
+  const handleShowModal = () => {
+    dispatch(action.showModal());
+  }
 
   // RENDER:
   return (
     <div className='App'>
-      <Header />
+      
+      <Header />      
       <HomePage postList={postList} />
+
+      {/* modal - create blog */}
+      <CreatePostModel />
       {/* icon - them blog */}
-      <Fab color='primary' className='buttonAddFixed' >
+      <Fab color='primary' className='buttonAddFixed' onClick={handleShowModal} >
         <Add />
       </Fab>
+
     </div>
   );
 }
