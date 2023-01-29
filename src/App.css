@@ -8,6 +8,14 @@
   pointer-events: none;
 }
 
+/* button add fixed */
+.buttonAddFixed {
+  position: fixed!important;
+  bottom: 20px;
+  right: 20px;
+}
+
+/*  */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

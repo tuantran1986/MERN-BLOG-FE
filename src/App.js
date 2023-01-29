@@ -9,6 +9,8 @@ import * as action from './redux/action/index';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import { selectPostList } from './redux/selector';
+import { Fab } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 
 function App() {
@@ -34,6 +36,10 @@ function App() {
     <div className='App'>
       <Header />
       <HomePage postList={postList} />
+      {/* icon - them blog */}
+      <Fab color='primary' className='buttonAddFixed' >
+        <Add />
+      </Fab>
     </div>
   );
 }
