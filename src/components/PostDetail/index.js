@@ -9,14 +9,16 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { blue, red } from '@mui/material/colors';
+import { blue, pink, red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from 'moment/moment';
 import { useDispatch } from 'react-redux';
-import { updateLikeCountPost } from '../../redux/action';
+import { deletePost, updateLikeCountPost } from '../../redux/action';
+import { Delete } from '@mui/icons-material';
+import ModalConfirm from '../ModalConfirm';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -34,13 +36,17 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function PostDetail(props) {
+    
+    const postInfo = props.postInfo;
     const dispatch = useDispatch();
     const [expanded, setExpanded] = React.useState(false);
+    const [showConfirm, setShowConfirm] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
+    // UPDATE
     const clickUpdateLikeCountPost = (_id, likeCount) => {
         dispatch(updateLikeCountPost({
             _id: _id,
@@ -48,10 +54,23 @@ export default function PostDetail(props) {
         }))
     };
 
-    const postInfo = props.postInfo;
-
+    // DELETE    
+    const openDeleteConfirm = () => {
+        setShowConfirm(true);
+    };
+    const closeDeleteConfirm = () => {
+        setShowConfirm(false);
+    };    
+    const handleDeletePost = () => {
+        dispatch(deletePost({
+            _id: postInfo._id
+        }));
+        setShowConfirm(false);
+    };
+    
     // RETURN
     return (
+        <>
         <Card sx={{ maxWidth: 600 }}>
 
             {/* 1. HEADER */}
@@ -63,7 +82,8 @@ export default function PostDetail(props) {
                 }
                 action={
                     <IconButton aria-label="settings">
-                        <MoreVertIcon />
+                        <Delete sx={{ color: pink[500] }} onClick={openDeleteConfirm} />
+                        {/* <MoreVertIcon /> */}
                     </IconButton>
                 }
                 // title="Shrimp and Chorizo Paella"
@@ -117,5 +137,13 @@ export default function PostDetail(props) {
                 </CardContent>
             </Collapse>
         </Card>
+        
+        <ModalConfirm 
+            open={showConfirm}
+            post={postInfo}
+            handleClose={closeDeleteConfirm}
+            handleDelete={handleDeletePost}
+        />
+        </>
     );
 }

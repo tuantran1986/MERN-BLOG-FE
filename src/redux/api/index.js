@@ -20,3 +20,9 @@ export const updateLikeCountPost = (payload) => {
 
     return axios.post(`${URL}/posts/updateLikeCount`, payload);
 };
+
+export const deletePost = (payload) => {
+    console.log('3...run api: deletePost');
+
+    return axios.post(`${URL}/posts/delete`, payload);
+};

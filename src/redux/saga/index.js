@@ -3,7 +3,7 @@ import * as type from '../constant/index';
 import * as api from '../api/index';
 // KHÔNG SỬ DỤNG - * AS ACTION - vì trùng với THAM SỐ - ACTION REQUEST LÊN!
 // import * as action from '../action/index';
-import { createPostSuccess, getAllPostsSuccess, updateLikeCountPostSuccess } from '../action';
+import { createPostSuccess, deletePostSuccess, getAllPostsSuccess, updateLikeCountPostSuccess } from '../action';
 
 
 // test
@@ -53,12 +53,28 @@ function* sagaUpdateLikeCountPost(action) {
 }
 
 
+// 4.SAGA WORKER: nhận vào "action"
+function* sagaDeletePost(action) {
+    const payload = action.data;
+    // 1.1. call API:
+    const response = yield call(api.deletePost, payload);
+
+    console.log('4...run saga: sagaDeletePost');
+    console.log('sagaDeletePost - response = ', response);
+    
+    // 1.2. xóa DATA trong STORE:
+    if (response && response.status === 200) {
+        yield put(deletePostSuccess(payload));        
+    }
+}
+
 
 // N.ROOTSAGA - WATCHER:
 function* rootSaga() {
     yield takeLatest(type.GET_ALL_POSTS, sagaGetAllPosts);
     yield takeLatest(type.CREATE_POST, sagaCreatePost);
     yield takeLatest(type.UPDATE_LIKE_COUNT_POST, sagaUpdateLikeCountPost);
+    yield takeLatest(type.DELETE_POST, sagaDeletePost);
 }
 
 export default rootSaga;

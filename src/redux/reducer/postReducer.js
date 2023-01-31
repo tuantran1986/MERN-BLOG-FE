@@ -12,7 +12,7 @@ export const postReducer = (state = initStatePost, action) => {
     switch (action.type) {
 
         // 1.GET_ALL_POSTS
-        case type.GET_ALL_POSTS:            
+        case type.GET_ALL_POSTS:
             return {
                 ...state,
                 loading: true
@@ -23,7 +23,7 @@ export const postReducer = (state = initStatePost, action) => {
                 loading: false,
                 postList: action.data
             };
-        case type.GET_ALL_POSTS_FAILURE:            
+        case type.GET_ALL_POSTS_FAILURE:
             // return initStatePost;
             return {
                 ...state,
@@ -31,7 +31,7 @@ export const postReducer = (state = initStatePost, action) => {
             };
 
         // 2.CREATE_POST
-        case type.CREATE_POST:            
+        case type.CREATE_POST:
             return {
                 ...state,
                 loading: true
@@ -49,19 +49,19 @@ export const postReducer = (state = initStatePost, action) => {
                 loading: false
             };
 
-        // 2.UPDATE_LIKE_COUNT_POST
-        case type.UPDATE_LIKE_COUNT_POST:            
+        // 3.UPDATE_LIKE_COUNT_POST
+        case type.UPDATE_LIKE_COUNT_POST:
             return {
                 ...state,
                 loading: true
             };
 
-        
+
         // CÁCH 1 - UPDATE = map
         case type.UPDATE_LIKE_COUNT_POST_SUCCESS:
-            const postListUpdateLikeCount = state.postList.map(item =>  item._id === action.data._id ? 
-                {...item, likeCount: action.data.likeCount + 1} 
-                : 
+            const postListUpdateLikeCount = state.postList.map(item => item._id === action.data._id ?
+                { ...item, likeCount: action.data.likeCount + 1 }
+                :
                 item
             );
 
@@ -70,7 +70,6 @@ export const postReducer = (state = initStatePost, action) => {
                 loading: false,
                 postList: postListUpdateLikeCount
             };
-        
         // CÁCH 2 - UPDATE = findIndex
         // case type.UPDATE_LIKE_COUNT_POST_SUCCESS:
         //     const indexUpdateLikeCount = state.postList.findIndex(item => item._id === action.data._id);
@@ -88,12 +87,35 @@ export const postReducer = (state = initStatePost, action) => {
         //         postList: [...postListUpdateLikeCount]
         //     };
 
-
         case type.UPDATE_LIKE_COUNT_POST_FAILURE:
             return {
                 ...state,
                 loading: false
             };
+
+
+        // 4.DELETE_POST
+        case type.DELETE_POST:
+            return {
+                ...state,
+                loading: true
+            };
+        case type.DELETE_POST_SUCCESS:
+            console.log('REDUCER: DELETE_POST_SUCCESS - action.data = ', action.data);
+            console.log('REDUCER: DELETE_POST_SUCCESS - action.data._id = ', action.data._id);
+            const postListDelete = state.postList.filter(item => item._id !== action.data._id)
+            console.log('REDUCER: DELETE_POST_SUCCESS - postListDelete = ', postListDelete);
+            return {
+                ...state,
+                loading: false,
+                postList: [...postListDelete]
+            };
+        case type.DELETE_POST_FAILURE:
+            return {
+                ...state,
+                loading: false
+            };
+
 
         // N. END
         default:

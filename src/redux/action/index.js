@@ -90,3 +90,30 @@ export const updateLikeCountPostFailure = (err) => {
         err: err
     }
 };
+
+
+// 5.DELETE_POST:
+export const deletePost = (data) => {
+    console.log('2...run action: DELETE_POST');
+    // 
+    return {
+        type: type.DELETE_POST,
+        data: data
+    }
+};
+export const deletePostSuccess = (data) => {
+    console.log('...run action: DELETE_POST_SUCCESS');
+    // 
+    return {
+        type: type.DELETE_POST_SUCCESS,
+        data: data
+    }
+};
+export const deletePostFailure = (err) => {
+    console.log('...run action: DELETE_POST_FAILURE');
+    // 
+    return {
+        type: type.DELETE_POST_FAILURE,
+        err: err
+    }
+};
