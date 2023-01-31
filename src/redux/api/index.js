@@ -8,3 +8,9 @@ export const fetchAllPosts = () => {
 
     return axios.get(`${URL}/posts`)
 };
+
+export const createPost = (payload) => {
+    console.log('3...run api: createPost');
+
+    return axios.post(`${URL}/posts/create`, payload);
+};

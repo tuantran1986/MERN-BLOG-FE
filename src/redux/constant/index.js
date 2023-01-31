@@ -7,3 +7,7 @@ export const GET_ALL_POSTS_FAILURE = "GET_ALL_POSTS_FAILURE";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 
+// 3.
+export const CREATE_POST = "CREATE_POST";
+export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
+export const CREATE_POST_FAILURE = "CREATE_POST_FAILURE";

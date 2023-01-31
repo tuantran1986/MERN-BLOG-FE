@@ -8,29 +8,34 @@ import FileBase64 from 'react-file-base64';
 
 import { Send } from '@mui/icons-material';
 import { Button, Grid, Modal, TextareaAutosize, TextField } from '@mui/material';
-import { hideModal } from '../../redux/action';
+import { createPost, hideModal } from '../../redux/action';
 import { selectShowModal } from '../../redux/selector';
 import { useStyles } from './style';
+
+const INIT_STATE = {
+    author: '',
+    title: '',
+    content: '',
+    attachment: ''
+};
 
 export default function CreatePostModel() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const showModal = useSelector(selectShowModal);
 
-    const [data, setData] = useState({
-        author: '',
-        title: '',
-        content: '',
-        attachment: ''
-    });
+    const [data, setData] = useState(INIT_STATE);
 
     // 
     const handleClose = () => {
         dispatch(hideModal());
+        setData(INIT_STATE);
     }
+    
     const onSubmit = () => {
-        console.log('submit - data: ', data);        
-        dispatch(hideModal());
+        console.log('submit - data: ', data);
+        dispatch(createPost(data));
+        handleClose();  // close + resetState
     }
 
 
