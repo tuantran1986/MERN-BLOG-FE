@@ -14,3 +14,9 @@ export const createPost = (payload) => {
 
     return axios.post(`${URL}/posts/create`, payload);
 };
+
+export const updateLikeCountPost = (payload) => {
+    console.log('3...run api: updateLikeCountPost');
+
+    return axios.post(`${URL}/posts/updateLikeCount`, payload);
+};

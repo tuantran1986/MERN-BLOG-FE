@@ -63,3 +63,30 @@ export const createPostFailure = (err) => {
         err: err
     }
 };
+
+
+// 4.UPDATE_LIKE_COUNT_POST:
+export const updateLikeCountPost = (data) => {
+    console.log('2...run action: UPDATE_LIKE_COUNT_POST');
+    // 
+    return {
+        type: type.UPDATE_LIKE_COUNT_POST,
+        data: data
+    }
+};
+export const updateLikeCountPostSuccess = (data) => {
+    console.log('...run action: UPDATE_LIKE_COUNT_POST_SUCCESS');
+    // 
+    return {
+        type: type.UPDATE_LIKE_COUNT_POST_SUCCESS,
+        data: data
+    }
+};
+export const updateLikeCountPostFailure = (err) => {
+    console.log('...run action: UPDATE_LIKE_COUNT_POST_FAILURE');
+    // 
+    return {
+        type: type.UPDATE_LIKE_COUNT_POST_FAILURE,
+        err: err
+    }
+};

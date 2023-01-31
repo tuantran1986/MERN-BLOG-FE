@@ -15,6 +15,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import moment from 'moment/moment';
+import { useDispatch } from 'react-redux';
+import { updateLikeCountPost } from '../../redux/action';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -32,10 +34,18 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function PostDetail(props) {
+    const dispatch = useDispatch();
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+
+    const clickUpdateLikeCountPost = (_id, likeCount) => {
+        dispatch(updateLikeCountPost({
+            _id: _id,
+            likeCount: likeCount
+        }))
     };
 
     const postInfo = props.postInfo;
@@ -65,7 +75,7 @@ export default function PostDetail(props) {
             {/* 2. IMAGE */}
             <CardMedia
                 component="img"
-                height="400"                
+                height="400"
                 image={postInfo.attachment}
                 alt="Paella dish"
             />
@@ -77,7 +87,8 @@ export default function PostDetail(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites"  style={{ color: 'rebeccapurple' }}>
+                {/* ICON - HEART */}
+                <IconButton aria-label="add to favorites" style={{ color: 'rebeccapurple' }} onClick={() => { clickUpdateLikeCountPost(postInfo._id, postInfo.likeCount) }}>
                     <span style={{ fontSize: '16px' }}>
                         {postInfo.likeCount}
                     </span>

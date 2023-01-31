@@ -49,6 +49,51 @@ export const postReducer = (state = initStatePost, action) => {
                 loading: false
             };
 
+        // 2.UPDATE_LIKE_COUNT_POST
+        case type.UPDATE_LIKE_COUNT_POST:            
+            return {
+                ...state,
+                loading: true
+            };
+
+        
+        // CÁCH 1 - UPDATE = map
+        case type.UPDATE_LIKE_COUNT_POST_SUCCESS:
+            const postListUpdateLikeCount = state.postList.map(item =>  item._id === action.data._id ? 
+                {...item, likeCount: action.data.likeCount + 1} 
+                : 
+                item
+            );
+
+            return {
+                ...state,
+                loading: false,
+                postList: postListUpdateLikeCount
+            };
+        
+        // CÁCH 2 - UPDATE = findIndex
+        // case type.UPDATE_LIKE_COUNT_POST_SUCCESS:
+        //     const indexUpdateLikeCount = state.postList.findIndex(item => item._id === action.data._id);
+        //     const postListUpdateLikeCount = [...state.postList];
+        //     if (indexUpdateLikeCount !== -1) {
+        //         postListUpdateLikeCount[indexUpdateLikeCount] = {
+        //             ...postListUpdateLikeCount[indexUpdateLikeCount],
+        //             likeCount: action.data.likeCount + 1
+        //         }
+        //     }
+
+        //     return {
+        //         ...state,
+        //         loading: false,
+        //         postList: [...postListUpdateLikeCount]
+        //     };
+
+
+        case type.UPDATE_LIKE_COUNT_POST_FAILURE:
+            return {
+                ...state,
+                loading: false
+            };
 
         // N. END
         default:
