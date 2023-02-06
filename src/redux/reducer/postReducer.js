@@ -101,10 +101,7 @@ export const postReducer = (state = initStatePost, action) => {
                 loading: true
             };
         case type.DELETE_POST_SUCCESS:
-            console.log('REDUCER: DELETE_POST_SUCCESS - action.data = ', action.data);
-            console.log('REDUCER: DELETE_POST_SUCCESS - action.data._id = ', action.data._id);
             const postListDelete = state.postList.filter(item => item._id !== action.data._id)
-            console.log('REDUCER: DELETE_POST_SUCCESS - postListDelete = ', postListDelete);
             return {
                 ...state,
                 loading: false,
